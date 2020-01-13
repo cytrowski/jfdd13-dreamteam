@@ -8,17 +8,19 @@
   },
   "devDependencies": {
     "node-sass": "^4.13.0",
+    "parcel-bundler": "^1.12.4",
     "rollup": "^1.27.14"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "jsBundlerWatch": "npx rollup -w --config"
+    "jsBundlerWatch": "npx rollup -w --config",
+    "start": "parcel ./game/game3.html"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/infoshareacademy/jfdd13-dreamteam.git"
   },
-  "author": "Alexander Walczuk, Martyna Michno, Michal Kusnierz, Rafal Wenslaw",
+  "author": "Alexander Walczuk, Martyna Michno, Michal Kusnierz, Rafal Wenslaw, Bartosz Cytrowski",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/infoshareacademy/jfdd13-dreamteam/issues"
