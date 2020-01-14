@@ -1,15 +1,10 @@
 import images from "../../img/*.png";
+import { backToMenu, removeKeySupport, getBoardButtons } from "./helpers";
 
-export const boardButtons = document.querySelectorAll(".board__btn");
-export const backToMenu = () => {
-  const hrefArr = document.location.href.split("/").map(el => el + "/");
-  const slicedhref =
-    hrefArr.slice(0, hrefArr.length - 2).join("") + "index.html";
-  document.location.assign(slicedhref);
-};
-export const removeKeySupport = () =>
-  document.removeEventListener("keydown", keySupport);
+
+
 export const game = () => {
+  const boardButtons = getBoardButtons()
   let raf = "";
   let pop = "";
   let id = 0,
@@ -523,7 +518,7 @@ export const game = () => {
   startGame();
 };
 
-const keySupport = event => {
+export const keySupport = event => {
   removeKeySupport();
   if (event.key === "Enter") {
     game();
@@ -532,6 +527,3 @@ const keySupport = event => {
   }
 };
 
-document.addEventListener("keydown", keySupport);
-boardButtons[0].addEventListener("click", backToMenu);
-boardButtons[1].addEventListener("click", game);
