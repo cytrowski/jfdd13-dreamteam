@@ -1,18 +1,27 @@
 import images from "../../img/*.png";
 import { backToMenu, removeKeySupport, getBoardButtons } from "./helpers";
 
-
+const displayElements = (el, param, override = null) => {
+  let visible = param ? "inline-block" : "none";
+  if (el) {
+    if (el.hasOwnProperty(length)) {
+      el.forEach(btn => (btn.style.display = override || visible));
+    } else {
+      el.style.display = override || visible;
+    }
+  }
+};
 
 export const game = () => {
-  const boardButtons = getBoardButtons()
-  let raf = "";
-  let pop = "";
-  let id = 0,
+  const boardButtons = getBoardButtons(),
+    board = document.querySelector(".board"),
+    clock = document.getElementById("clock");
+
+  let raf = "",
+    pop = "",
+    id = 0,
     seconds = 0,
     minutes = 0;
-
-  const board = document.querySelector(".board"),
-    clock = document.getElementById("clock");
 
   const playerWidth = 50,
     playerHeight = 40,
@@ -37,22 +46,13 @@ export const game = () => {
     intervals = [],
     timeouts = [];
 
-  const displayElements = (el, param, override = null) => {
-    let visible = param ? "inline-block" : "none";
-    if (el) {
-      if (el.hasOwnProperty(length)) {
-        el.forEach(btn => (btn.style.display = override || visible));
-      } else {
-        el.style.display = override || visible;
-      }
-    }
-  };
   const refreshBoard = () => {
     location.reload(board);
     displayElements(boardButtons, true);
     boardButtons[1].addEventListener("click", startGame);
     boardButtons[0].addEventListener("click", backToMenu);
   };
+
   const timer = () => {
     seconds++;
     if (seconds >= 60) {
@@ -526,4 +526,3 @@ export const keySupport = event => {
     backToMenu();
   }
 };
-
