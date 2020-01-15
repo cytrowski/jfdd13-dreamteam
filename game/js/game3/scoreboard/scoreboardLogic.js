@@ -1,10 +1,10 @@
 import { renderScore } from "./scoreboardRender";
-import { removeKeySupport } from "../game";
+import { removeKeySupport } from "../keyboard";
 
 export const playerName = document.getElementById("playerName");
 export let currentPlayerName = '';
 
-export const scoreboard = () => {
+export const initScoreboard = () => {
   const clearScoresBtn = document.getElementById("clearScores");
   const displayScoresBtn = document.getElementById("displayScores");
   const scoreboard = document.getElementById("scoreboard");

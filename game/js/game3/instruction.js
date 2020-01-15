@@ -1,28 +1,32 @@
 const getByIds = ids => ids.map(id => document.getElementById(id));
 
-export const instruction = () => {
-  
-  const [modal, btn, span, closeBtn] = getByIds([
+export const showInstructions = () => {
+  const [modal, closeIcon, closeBtn] = getByIds([
     "modalInstruction",
-    "btnInstructionShow",
     "iconInstructionClose",
     "btnInstructionClose"
   ]);
 
   const hideModal = () => {
     modal.style.display = "none";
-  }
+    closeIcon.removeEventListener("click", hideModal);
+    closeBtn.removeEventListener("click", hideModal);
+    window.removeEventListener("click", handleOutsideModalClick);
+  };
 
   const showModal = () => {
     modal.style.display = "flex";
   };
 
-  btn.onclick = showModal
-  span.onclick = hideModal
-  closeBtn.onclick = hideModal
-  window.onclick = function(event) {
+  const handleOutsideModalClick = event => {
     if (event.target === modal) {
-      hideModal()
+      hideModal();
     }
   };
+
+  closeIcon.addEventListener("click", hideModal);
+  closeBtn.addEventListener("click", hideModal);
+  window.addEventListener("click", handleOutsideModalClick);
+
+  showModal();
 };

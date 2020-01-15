@@ -1,5 +1,5 @@
 import images from "../../img/*.png";
-import { backToMenu, removeKeySupport, getBoardButtons } from "./helpers";
+import { backToMenu, getBoardButtons } from "./helpers";
 
 const displayElements = (el, param, override = null) => {
   let visible = param ? "inline-block" : "none";
@@ -13,6 +13,7 @@ const displayElements = (el, param, override = null) => {
 };
 
 export const game = () => {
+  console.log('game started')
   const boardButtons = getBoardButtons(),
     board = document.querySelector(".board"),
     clock = document.getElementById("clock");
@@ -516,13 +517,4 @@ export const game = () => {
     }
   };
   startGame();
-};
-
-export const keySupport = event => {
-  removeKeySupport();
-  if (event.key === "Enter") {
-    game();
-  } else if (event.key === "Escape") {
-    backToMenu();
-  }
 };

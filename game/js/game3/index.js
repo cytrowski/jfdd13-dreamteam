@@ -1,15 +1,8 @@
-import { instruction } from "./instruction";
-import { gameIndex } from "./game-index";
-import { scoreboard } from "./scoreboard/scoreboardLogic";
-import { getBoardButtons, backToMenu } from "./helpers";
-import { keySupport, game } from "./game";
+import { home } from "./screens/home";
+import { game } from "./screens/game";
 
-instruction();
-scoreboard();
-gameIndex();
+const screens = {};
+screens.home = home(screens);
+screens.game = game(screens);
 
-const boardButtons = getBoardButtons()
-
-document.addEventListener("keydown", keySupport);
-boardButtons[0].addEventListener("click", backToMenu);
-boardButtons[1].addEventListener("click", game);
+screens.home.enter()

@@ -1,11 +1,21 @@
 export const backToMenu = () => {
-  const hrefArr = document.location.href.split("/").map(el => el + "/");
-  const slicedhref =
-    hrefArr.slice(0, hrefArr.length - 2).join("") + "index.html";
-  document.location.assign(slicedhref);
+  window.location.href = window.config.homepageUrl;
 };
 
-export const removeKeySupport = () =>
-  document.removeEventListener("keydown", keySupport);
+export const getBoardButtons = () =>
+  document.querySelectorAll("button.board__btn");
 
-export const getBoardButtons = () => document.querySelectorAll(".board__btn");
+export const getNamedButtons = () => {
+  const [
+    goToHomepageButton,
+    playButton,
+    showInstructionsButton
+  ] = getBoardButtons();
+  return { goToHomepageButton, playButton, showInstructionsButton };
+};
+
+export const subscribe = (element, event, handler) => {
+  element.addEventListener(event, handler);
+  const unsubscribe = () => element.removeEventListener(event, handler);
+  return unsubscribe;
+};
