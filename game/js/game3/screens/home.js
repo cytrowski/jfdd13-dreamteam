@@ -1,38 +1,50 @@
-import { getBoardButtons, backToMenu, getNamedButtons, subscribe } from "../helpers";
+import {
+  getBoardButtons,
+  backToMenu,
+  getNamedButtons,
+  subscribe,
+  subscribeAll,
+} from "../helpers";
 import { game } from "../game";
-import { showInstructions } from "../instruction";
-import { setKeymap } from "../keyboard";
+import * as instructions from "./instructions"
 
-export const home = () => {
-  const subscriptions = [];
+let subscriptions = [];
 
-  const enter = () => {
-    const {
-      goToHomepageButton,
-      playButton,
-      showInstructionsButton
-    } = getNamedButtons();
-
-    subscriptions.push(
-      subscribe(goToHomepageButton, 'click', backToMenu),
-      subscribe(playButton, 'click', game),
-      subscribe(showInstructionsButton, 'click', showInstructions)
-    )
-
-    setKeymap({
-      Enter: game,
-      Escape: backToMenu,
-      i: showInstructions
-    });
-  };
-
-  const leave = () => {
-    subscriptions.forEach(unsubscribe => unsubscribe())
-    setKeymap({});
-  }
-
-  return {
-    enter,
-    leave
-  };
+export const leave = () => {
+  subscriptions.forEach(unsubscribe => unsubscribe());
 };
+
+const withLeave = f => () => { leave(); f() }
+
+export const enter = () => {
+  const {
+    goToHomepageButton,
+    playButton,
+    showInstructionsButton
+  } = getNamedButtons();
+
+  subscriptions = subscribeAll([
+    [
+      withLeave(backToMenu),
+      [
+        [window, "keydown", event => event.key === "Escape"],
+        [goToHomepageButton, "click"]
+      ]
+    ],
+    [
+      withLeave(game),
+      [
+        [window, "keydown", event => event.key === "Enter"],
+        [playButton, "click"]
+      ]
+    ],
+    [
+      withLeave(instructions.enter),
+      [
+        [window, "keydown", event => event.key === "i"],
+        [showInstructionsButton, "click"]
+      ]
+    ]
+  ]);
+};
+
